@@ -1,0 +1,2 @@
+C:\Users\zubas\Source\Repos\open-meteo-dotnet\Open-Meteo\obj\Debug\Open-Meteo.csproj.AssemblyReference.cache
+C:\Users\zubas\Source\Repos\open-meteo-dotnet\Open-Meteo\obj\Debug\Open-Meteo.csproj.CoreCompileInputs.cache
