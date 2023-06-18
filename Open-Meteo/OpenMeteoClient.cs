@@ -102,7 +102,7 @@ namespace OpenMeteo
             {
                 Latitude = latitude,
                 Longitude = longitude,
-                Current_Weather = true
+                Current_Weather = false
             };
             return await QueryAsync(options);
         }
@@ -290,7 +290,11 @@ namespace OpenMeteo
             {
                 HttpResponseMessage response = await httpController.Client.GetAsync(MergeUrlWithOptions(_weatherApiUrl, options));
                 response.EnsureSuccessStatusCode();
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(json);
+
                 WeatherForecast weatherForecast = await JsonSerializer.DeserializeAsync<WeatherForecast>(await response.Content.ReadAsStreamAsync(), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
                 return weatherForecast;
             }
             catch (HttpRequestException e)
@@ -332,9 +336,9 @@ namespace OpenMeteo
             bool isFirstParam = false;
 
             // If no query given, add '' to start the query string
-            if (uri.Query == string.Empty)
+            if (qieru == string.Empty)
             {
-                uri.Query = "";
+                qieru = "";
 
                 // isFirstParam becomes true because the query string is new
                 isFirstParam = true;
@@ -355,12 +359,14 @@ namespace OpenMeteo
             qieru += "&precipitation_unit=" + options.Precipitation_Unit.ToString();
             if (options.Timezone != string.Empty)
                 qieru += "&timezone=" + options.Timezone;
-
+            qieru += "&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,rain,showers,snowfall,snow_depth,weathercode,pressure_msl,surface_pressure,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,is_day";
+            qieru += "&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,rain_sum,showers_sum,snowfall_sum,precipitation_hours,precipitation_probability_max,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant";
             qieru += "&current_weather=" + options.Current_Weather;
 
             qieru += "&timeformat=" + options.Timeformat.ToString();
 
             qieru += "&past_days=" + options.Past_Days;
+
 
             if (options.Start_date != string.Empty)
                 qieru += "&start_date=" + options.Start_date;
@@ -430,6 +436,7 @@ namespace OpenMeteo
                     }
                 }
             }
+
             uri.Query = qieru;
             return uri.ToString();
         }
@@ -440,22 +447,23 @@ namespace OpenMeteo
         /// <returns>url+queryString</returns>
         private string MergeUrlWithOptions(string url, GeocodingOptions options)
         {
+            string qieru = "";
             if (options == null) return url;
 
             UriBuilder uri = new UriBuilder(url);
             bool isFirstParam = false;
 
             // If no query given, add '' to start the query string
-            if (uri.Query == string.Empty)
+            if (qieru == string.Empty)
             {
-                uri.Query = "";
+                qieru = "";
 
                 // isFirstParam becomes true because the query string is new
                 isFirstParam = true;
             }
 
             // Now we check every property and set the value, if neccessary
-            string qieru = "";
+          
             if (isFirstParam)
             {
                 qieru += "name=" + options.Name;
@@ -483,15 +491,16 @@ namespace OpenMeteo
         /// <returns>url+queryString</returns>
         private string MergeUrlWithOptions(string url, AirQualityOptions options)
         {
+            string qieru = "";
             if (options == null) return url;
 
             UriBuilder uri = new UriBuilder(url);
             bool isFirstParam = false;
 
             // If no query given, add '' to start the query string
-            if (uri.Query == string.Empty)
+            if (qieru == string.Empty)
             {
-                uri.Query = "";
+                qieru = "";
 
                 // isFirstParam becomes true because the query string is new
                 isFirstParam = true;
@@ -499,41 +508,41 @@ namespace OpenMeteo
 
             // Now we check every property and set the value, if neccessary
             if (isFirstParam)
-                uri.Query += "latitude=" + options.Latitude.ToString(CultureInfo.InvariantCulture);
+                qieru += "latitude=" + options.Latitude.ToString(CultureInfo.InvariantCulture);
             else
-                uri.Query += "&latitude=" + options.Latitude.ToString(CultureInfo.InvariantCulture);
+                qieru += "&latitude=" + options.Latitude.ToString(CultureInfo.InvariantCulture);
 
-            uri.Query += "&longitude=" + options.Longitude.ToString(CultureInfo.InvariantCulture);
+            qieru += "&longitude=" + options.Longitude.ToString(CultureInfo.InvariantCulture);
 
             if (options.Domains != string.Empty)
-                uri.Query += "&domains=" + options.Domains;
+                qieru += "&domains=" + options.Domains;
 
             if (options.Timeformat != string.Empty)
-                uri.Query += "&timeformat=" + options.Timeformat;
+                qieru += "&timeformat=" + options.Timeformat;
 
             if (options.Timezone != string.Empty)
-                uri.Query += "&timezone=" + options.Timezone;
+                qieru += "&timezone=" + options.Timezone;
 
             // Finally add hourly array
             if (options.Hourly.Count >= 0)
             {
                 bool firstHourlyElement = true;
-                uri.Query += "&hourly=";
+                qieru += "&hourly=" + "surface_pressure";
 
                 foreach (var option in options.Hourly)
                 {
                     if (firstHourlyElement)
                     {
-                        uri.Query += option.ToString();
+                        qieru += option.ToString();
                         firstHourlyElement = false;
                     }
                     else
                     {
-                        uri.Query += option.ToString();
+                        qieru += option.ToString();
                     }
                 }
             }
-
+            uri.Query = qieru;
             return uri.ToString();
         }
     }

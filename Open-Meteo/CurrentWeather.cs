@@ -33,5 +33,7 @@ namespace OpenMeteo
         /// Wind direction in degrees
         /// </summary>
         public float WindDirection { get; set; }
+
+
     }
 }
