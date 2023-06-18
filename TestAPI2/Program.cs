@@ -27,7 +27,7 @@ namespace TestAPI2
             Console.WriteLine(weatherData.CurrentWeather.Windspeed);
             Console.WriteLine(weatherData.CurrentWeather.WindDirection);
             Console.WriteLine(weatherData.CurrentWeather.Time);
-            Console.WriteLine(weatherData.Hourly.Surface_pressure);
+            Console.WriteLine(weatherData.Hourly.Surface_pressure[0] * 0.750064);
             Console.WriteLine(weatherData.Hourly.Pressure_msl);
             Console.WriteLine(weatherData.Hourly.Apparent_temperature);
             Console.WriteLine(weatherData.Hourly.Precipitation);
@@ -41,10 +41,10 @@ namespace TestAPI2
             //Запрос на весь день
             Console.WriteLine("Запрос на весь день");
             Console.WriteLine(weatherData.Daily.Weathercode);
-            Console.WriteLine(weatherData.Daily.Temperature_2m_max);
-            Console.WriteLine(weatherData.Daily.Temperature_2m_min);
-            Console.WriteLine(weatherData.Daily.Apparent_temperature_max);
-            Console.WriteLine(weatherData.Daily.Apparent_temperature_min);
+            Console.WriteLine(weatherData.Daily.Temperature_2m_max[0]);
+            Console.WriteLine(weatherData.Daily.Temperature_2m_min[0]);
+            Console.WriteLine(weatherData.Daily.Apparent_temperature_max[0]);
+            Console.WriteLine(weatherData.Daily.Apparent_temperature_min[0]);
             Console.WriteLine(weatherData.Daily.Sunrise);
             Console.WriteLine(weatherData.Daily.Sunset);
             Console.WriteLine(weatherData.Daily.Precipitation_sum);

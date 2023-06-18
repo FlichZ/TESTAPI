@@ -290,10 +290,10 @@ namespace OpenMeteo
             {
                 HttpResponseMessage response = await httpController.Client.GetAsync(MergeUrlWithOptions(_weatherApiUrl, options));
                 response.EnsureSuccessStatusCode();
-                string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(json);
 
                 WeatherForecast weatherForecast = await JsonSerializer.DeserializeAsync<WeatherForecast>(await response.Content.ReadAsStreamAsync(), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(json);
 
                 return weatherForecast;
             }
