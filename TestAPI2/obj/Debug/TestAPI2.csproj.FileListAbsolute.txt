@@ -55,7 +55,6 @@ C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\bin\Debug\System.Buffers.xml
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.csproj.AssemblyReference.cache
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.csproj.SuggestedBindingRedirects.cache
-C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.exe.config
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.csproj.CoreCompileInputs.cache
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.csproj.CopyComplete
 C:\Users\zubas\Source\Repos\TESTAPI\TestAPI2\obj\Debug\TestAPI2.exe

@@ -295,6 +295,7 @@ namespace OpenMeteo
                 string json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(json);
 
+
                 return weatherForecast;
             }
             catch (HttpRequestException e)
@@ -445,7 +446,7 @@ namespace OpenMeteo
         /// Combines a given url with an options object to create a url for GET requests
         /// </summary>
         /// <returns>url+queryString</returns>
-        private string MergeUrlWithOptions(string url, GeocodingOptions options)
+        private string MergeUrlWithOptions(string url, GeocodingOptions  options)
         {
             string qieru = "";
             if (options == null) return url;
